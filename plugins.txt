@@ -1,0 +1,3 @@
+job-dsl:1.37
+build-flow-plugin:0.18
+buildgraph-view:1.1.1
