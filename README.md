@@ -7,7 +7,7 @@
   * [job-dsl](https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin) - JobDSL plugin. Required to generate jobs used for demo
   * [build-flow-plugin](https://wiki.jenkins-ci.org/display/JENKINS/Build+Flow+Plugin) - BuildFlow plugin. Required to orchestrate jobs execution
   * [buildgraph-view](https://wiki.jenkins-ci.org/display/JENKINS/Build+Graph+View+Plugin) - Build Graph View Plugin. We don't really need it for the demo. Just in case if I will need to show how jobs connected as a graph. 
-* quietperiod.groovy - set global Quite Period to O
+* quietperiod.groovy - set global Quiet Period to 0
 * executors.groovy - set number of executors on master to 0
 * createjob.groovy - create a JobDsl seed job. This one is a tricky one. Apparently it is not that simple to create job in Jenkins on startup. There is a possibility to just copy config.xml. But IMHO doing that in Groovy is a bit more elegant despite of some effort required to look up type for the JobDSL builder. Also this way allows to avoid mess with file permission after copy of xml file. Main idea of this file is to create a seed job with JobDSL inside so we can generate all jobs during demo without wasting time on configuration.
 
