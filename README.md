@@ -19,7 +19,12 @@
   docker-machine create --driver virtualbox jenkins-checkpoints-demo
 ```
 
-* Before you start you need to setup port forwarding from guest machine to your host so you can use your browser to see web pages from docker container. To do so open VirtualBox -> right click on jenkins-checkpoints-demo virtual machine -> Settings -> Network -> Port Forwarding -> Add one more rule that looks like ssh one but use 8080 as port number in both cases
+* We need to setup port forwarding in order to be able to access Jenkins web ui from the browser on host machine
+
+```shell
+  VBoxManage controlvm jenkins-checkpoints-demo natpf1 "HTTP,tcp,127.0.0.1,8080,,8080"
+```
+
 * Jump into virtual machine by running
 
 ```shell
@@ -42,7 +47,6 @@
 * Kick off new container
  
 ```shell
-  cd jenkins-checkpoints-demo
   docker run -p 8080:8080 checkpoints-demo
 ```
 
@@ -50,7 +54,7 @@
 
 ## Demo
 
-* Go to localhost:8080 and run seedjob. It will generate all necessary jobs. We have two types of jobs. trigger is a buildflow that orchestrate jobs execution and step-x jobs. Those are just dummy ones that will hang for a random number of seconds passed as parameter from the build flow.
+* Open localhost:8080 in your browser and run seedjob. Seedjob will generate all necessary jobs. We have two types of jobs - trigger and build steps. Trigger is a buildflow that orchestrate jobs execution and step-x jobs. Those are just dummy ones that will hang for a random number of seconds passed as parameter from the build flow.
 * Open build flow configuration. You can see that we create a CheckPoint before starting step-5. That will allow us to sync jobs and ensure execution order. We also will set description for every run in order to provide better visibility to what flow this execution belongs to
 * Kick off 10-20 trigger executions and watch order of step-4 executions. You will notice that some sessions will reach that step faster than other but still will wait for previous flows to finish before start step-5
 * That is basically it. Now you only limited with you imagination :) Go hack it!
